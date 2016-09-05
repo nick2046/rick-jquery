@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{ margin: 0;padding: 0; }
+		.box{ position: relative;width: 240px; }
+		.clear:after{ content:"";height: 0px;clear: both;display: block;overflow: hidden; }
+		.clear{-ms-zoom:1;}
+		.box>.img-box{width:100%;height:240px;position: relative;}
+		.box>.img-box>img{ width: 240px;height: 100%;position: absolute; }
+		.liList{ position: absolute;right: 0;bottom: 0; }
+		.liList>li{ list-style: none;width:30px;height:30px;line-height: 30px;text-align: center; float: left; display: inline-block;background-color: rgba(0,0,0,0.3);margin-left: 5px;}
+		.liList>.active{ background-color: orange; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="img-box">
+			<img src="图片/cc5.jpg" alt="">
+			<img style="display:none;" src="图片/cc6.jpg" alt="">
+			<img style="display:none;" src="图片/cc7.jpg" alt="">
+			<img style="display:none;" src="图片/cc8.jpg" alt="">
+			<img style="display:none;" src="图片/cc9.jpg" alt="">
+		</div>
+		<ul class="liList clear">
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src='../lib/common.js'></script>
+	<script type="text/javascript">
+		var $imgList = $('.img-box img');
+		var $liList = $('.liList li');
+		var timer = setInterval(runloop,2000);
+		var showIndex = 0;
+		function runloop(){
+			active(showIndex);
+			showIndex++;
+			if (showIndex == 5) {
+				showIndex = 0;
+			}
+		}
+		function active(){
+			$imgList.eq(showIndex).css('display','block').siblings().css('display','none');
+			$liList.eq(showIndex).addClass('active').siblings().removeClass('active');
+		}
+		$liList.hover(function(e){
+			clearInterval(timer);
+			var index = $(e.currentTarget);
+			$imgList.eq(index.index()).css('display','block').siblings().css('display','none');
+			$liList.eq(index.index()).addClass('active').siblings().removeClass('active');
+		},function(e){
+			var index = $(e.currentTarget);
+			showIndex = index.index();
+			timer = setInterval(runloop,2000)
+		});
+
+		var xhr = null;
+		if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		}else{
+			xhr = new ActionXObject('Microsoft.XMLHTTP');
+		}
+		xhr.onload = function(){
+			if (xhr.status == 200) {
+				var imgUrl = 
+				console.log(xhr.responseText)
+			}
+		};
+		xhr.open('post','http://10.48.0.41:3000/User/getImgSlide');
+		xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+		xhr.send('id=1601&name=yinguit');
+	</script>
+</body>
+</html>

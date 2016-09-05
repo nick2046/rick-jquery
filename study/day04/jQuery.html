@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script type="text/javascript">
+		//ajax
+		//ajax 核心技术点 XMLHttpRequest对象(ie制造)
+		//基本上所有浏览器都有的对象
+		// var xhr = new XMLHttpRequest();
+		// //兼容ie5/ie6
+		// var xhr2 = new ActionXObject('Microsoft.XMLHTTP');
+		//完整的对象初始化
+		var xhr = null;
+		//判断下 XMLHttpRequest是否存在
+		if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		}else{
+			xhr = new ActionXObject('Microsoft.XMLHTTP');
+		}
+		//监听网络传输状态 如果发生变化,调用函数 (成功或者失败)
+		//xhr.readyState属性 发生变化
+		//0  new XMLHttpRequest();
+		//1  open();预备状态
+		//2  xhr.send();发送
+		//3  网络传输中....
+		//4  前端与后端的网络请求已结束，可以处理前端的业务逻辑
+		xhr.onreadystatechange = function(){
+			//判断状态值为4的时候，网络传输已结束
+			if( xhr.readyState == 4 ){
+				//status 网络请求状态码
+				//200-299 网络请求成功
+				//300-399 重定向，地址发生了变化
+				//400-499 资源错误 (前端的问题) 404 not found
+				//500-599 服务器出错 直接找后端处理
+
+				//请求状态码等于200，表示请求接口成功
+				if ( xhr.status == 200 ) {
+					//返回响应的文本
+					console.log( xhr.responseText );
+				}
+			}
+		}
+		//(type,url,async)
+		xhr.open('post','http://10.48.0.41:3000/User/getUserInfo',true);
+
+		//设置请求头,设置网络请求信息，告诉后端，传输的数据格式
+		//设置数据格式 Form-data
+		xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+		xhr.send( "id=9527" );//默认的数据格式{"id":"9527"}
+
+		//传输的文本类型
+		//json xml text html script
+
+		//get post 请求的区别
+		//
+		//post 请求open('post','完整的接口地址','这个参数不写，默认是true,异步方式调用')
+		//xhr.send('传递的参数为序列化的数据格式');
+		//xhr.send('id=9527&name=zhang')
+		//get请求
+		//xhr.open('get','XXXX?id=9527&name=zhang',true)
+		//发送的内容为空
+		//xhr.send( null );
+
+		//get请求把参数以明文的方式写在url里面，安全性最低
+		//get请求支持jsonp的方式解决跨域问题 post不支持
+		//get请求支持的数据传输量少
+
+	</script>
+</body>
+</html>

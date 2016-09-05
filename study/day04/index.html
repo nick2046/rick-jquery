@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script type="text/javascript">
+		var xhr = null;
+		if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		}else{
+			xhr = new ActionXObject('Microsoft.XMLHTTP');
+		}
+
+		//onload 此时的状态已经是请求发送成功，后端已经进行了响应
+		//readyState
+		xhr.onload = function(){
+			if (xhr.status == 200) {
+					console.log(xhr.status);
+					console.log(xhr.responseText);
+					//返回xml文本格式 基本已被淘汰
+					//如果传输的数据格式要求xml的时候，从这个字段取值 没有的时候，为null
+					console.log(xhr.responseXML);
+				}
+		};
+		// xhr.onreadystatechange = function(){
+		// 	if (xhr.readyState == 4) {
+				
+		// 	}
+		// }
+		xhr.open('get','http://10.48.0.41:3000/User/getUserInfoByGet?id=1601&name=yinguit',true);
+		// xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+		xhr.send(null);
+
+		//304 缓存
+		//get 可以走缓存 post不能
+
+		//get请求的转码
+		//encodeURI("中国") 转码
+		//"%E4%B8%AD%E5%9B%BD"
+		//decodeURI( encodeURI('中国') )
+		//"中国"
+
+	</script>
+</body>
+</html>

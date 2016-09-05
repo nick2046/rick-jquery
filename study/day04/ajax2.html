@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script type="text/javascript" src="../lib/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript">
+		//get()   以get方式请求接口
+		//post()  以post方式请求接口
+		//ajax()  请求接口,可以指定请求方式
+		//getScript() 获取js脚本
+		//( url,data,callback() )
+		//接口地址,入餐,执行接口成功后要做的事情
+		//callback(res,status,xhr)
+		//res 后端返回数据
+		//status jQuery对状态码解析后的字符串 success error等
+		//status 200 304 网络请求的状态码
+		// $.get('http://10.48.0.41:3000/User/getImgSlide',{id:'1601',name:'yinguit'},function(res){
+		// 	// debugger;
+		// 	console.log(res);
+		// });
+		$.post('http://10.48.0.41:3000/User/getImgSlide',{id:'1601',name:'yinguit'},function(res){
+			// debugger;
+			console.log(res);
+		});
+		//$.post() 与 $.get()
+		//用法基本一致,两者对原生的get和post进行了封装
+
+		//getScript函数,动态获取脚本文件 (性能优化,按需加载)
+		//$.getScript('url',function(res,status){})
+	</script>
+</body>
+</html>
